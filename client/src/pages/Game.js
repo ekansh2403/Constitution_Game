@@ -1,50 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Wheel from '../components/Wheel';
-import Question from '../components/Question';
-import { fetchQuestions, submitAnswer } from '../services/api';
+import Question from '../components/Question'; // Ensure Question component is adapted to handle multiple-choice questions
+import { themes } from '../data/questions'; // Import the themes
 
 const Game = () => {
-  const [category, setCategory] = useState('');
-  const [questions, setQuestions] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [theme, setTheme] = useState('');
+  const [question, setQuestion] = useState(null);
   const [score, setScore] = useState(0);
 
-  useEffect(() => {
-    if (category) {
-      fetchQuestions().then((data) => setQuestions(data));
-    }
-  }, [category]);
-
-  const handleSpin = (selectedCategory) => {
-    setCategory(selectedCategory);
+  const handleSpin = (selectedTheme, selectedQuestion) => {
+    setTheme(selectedTheme);
+    setQuestion(selectedQuestion);
   };
 
   const handleAnswerSubmit = (selectedAnswer) => {
-    const questionData = questions[currentQuestionIndex];
-    submitAnswer({
-      username: 'ekansh', // Replace with dynamic user
-      question: questionData.question,
-      selectedAnswer: selectedAnswer,
-      correctAnswer: questionData.correctAnswer,
-    }).then((response) => {
-      setScore(response.score);
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-      } else {
-        alert('Game over! Your score is: ' + score);
-      }
-    });
+    if (question) {
+      const isCorrect = selectedAnswer === question.answer;
+      setScore((prevScore) => prevScore + (isCorrect ? 1 : 0));
+      
+      // Optionally reset the question
+      setQuestion(null);
+    }
   };
 
   return (
     <div>
       <Wheel onSpin={handleSpin} />
-      {questions.length > 0 && (
+      {question && (
         <Question
-          questionData={questions[currentQuestionIndex]}
+          questionData={question}
           onSubmit={handleAnswerSubmit}
         />
       )}
+      <div>Theme: {theme}</div>
       <div>Score: {score}</div>
     </div>
   );

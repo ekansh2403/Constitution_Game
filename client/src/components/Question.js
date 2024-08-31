@@ -4,25 +4,25 @@ const Question = ({ questionData, onSubmit }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
 
   const handleSubmit = () => {
-    if (selectedAnswer) {
-      onSubmit(selectedAnswer);
-    }
+    onSubmit(selectedAnswer);
   };
 
   return (
     <div>
-      <h3>{questionData.question}</h3>
+      <h2>{questionData.question}</h2>
       <div>
         {questionData.options.map((option, index) => (
-          <label key={index}>
+          <div key={index}>
             <input
               type="radio"
-              name="answer"
+              id={`option-${index}`}
+              name="question"
               value={option}
-              onChange={() => setSelectedAnswer(option)}
+              checked={selectedAnswer === option}
+              onChange={(e) => setSelectedAnswer(e.target.value)}
             />
-            {option}
-          </label>
+            <label htmlFor={`option-${index}`}>{option}</label>
+          </div>
         ))}
       </div>
       <button onClick={handleSubmit}>Submit Answer</button>
