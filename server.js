@@ -17,6 +17,13 @@ mongoose.connect(process.env.MONGO_URI, {
 }).then(() => console.log('MongoDB connected'))
   .catch((err) => console.log(err));
 
+// Routes
+const questionRoutes = require('./routes/questionRoutes');
+const userRoutes = require('./routes/userRoutes');
+
+app.use('/api/questions', questionRoutes);
+app.use('/api/users', userRoutes);
+
 app.get('/', (req, res) => {
   res.send('Constitution Wheel Game API');
 });
