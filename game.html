@@ -73,13 +73,28 @@
             font-weight: bold;
             color: red;
         }
+
+        #google_translate_element {
+            margin: 20px 0;
+        }
     </style>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'hi,bn,ta,te,ml,kn,mr', // Add the languages here
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
     <div class="game-container">
         <h1>Crime Detection Game</h1>
+        <div id="google_translate_element"></div>
         <div id="questionContainer" class="question-container">
-            <img id="crimeImage" src="tommy_crime_1.jpg" alt="Crime Image" class="crime-image">
+            <img id="crimeImage" src="" alt="Crime Image" class="crime-image">
             <div>
                 <button class="btn" onclick="checkCrime(true)">Yes</button>
                 <button class="btn" onclick="checkCrime(false)">No</button>
@@ -89,6 +104,9 @@
             </div>
             <div id="result" class="crime-info">
                 <p id="resultText"></p>
+            </div>
+            <div id="bounty" class="crime-info">
+                <p>Your bounty: ₹<span id="bountyAmount">0</span></p>
             </div>
             <button id="nextButton" class="btn" onclick="nextQuestion()" style="display: none;">Next</button>
         </div>
@@ -101,19 +119,19 @@
         const questions = [
             {
                 image: 'https://www.gamemaps.com/img/addons/l4d2/ss/gta_thomas__tommy__vercetti__hd__19174_5.jpg?1501677421',
-                crime: 'Tommy Vercetti is committing a crime. According to the Indian Penal Code (IPC), this would be categorized under IPC Section 307 (Attempt to Murder).',
+                crime: 'Tommy Vercetti is committing a crime. According to the Bhartiya Nyaya Sanhita (BNS), this would be categorized under BNS Section 109 (Attempt to Murder).',
                 noCrime: 'Tommy Vercetti is not committing a crime.',
                 isCorrect: true // This indicates Tommy is committing a crime
             },
             {
-                image: 'https://staticg.sportskeeda.com/editor/2021/04/709e4-16185235907617-800.jpg',
-                crime: 'Tommy Vercetti is committing a crime. According to the IPC, this would be categorized under IPC Section 420 (Cheating and Dishonestly Inducing Delivery of Property).',
+                image: 'https://d.ibtimes.co.uk/en/full/324730/mafia-grand-theft-auto.jpg?w=1600&h=1200&l=50&t=50&q=88&f=4e3b76f91ce532169fef8a6766720e26',
+                crime: 'Tommy Vercetti is committing a crime. According to the BNS, this would be categorized under BNS Section 4 (prohibition of smoking in public places).',
                 noCrime: 'Tommy Vercetti is not committing a crime.',
                 isCorrect: true
             },
             {
                 image: 'https://static1.srcdn.com/wordpress/wp-content/uploads/2020/07/Vice-city-Tommy-Varcetti-riding-a-bike.jpg',
-                crime: 'Tommy Vercetti is committing a crime. According to Section 129 of the Motor Vehicles Act, 1988, makes riding a two-wheeler without a helmet a punishable offence.',
+                crime: 'Tommy Vercetti is committing a crime. According to Section 9 of the Motor Vehicles Act, 1988, makes riding a two-wheeler without a helmet a punishable offence.',
                 noCrime: 'Tommy Vercetti is not committing a crime.',
                 isCorrect: true
             },
@@ -127,10 +145,14 @@
         ];
     
         let currentQuestion = 0;
+        let bounty = 0; // Initialize the bounty counter
     
         function startGame() {
             document.getElementById('startButtonContainer').style.display = 'none';
             document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('bounty').style.display = 'block'; // Show the bounty display
+            bounty = 0; // Reset bounty
+            document.getElementById('bountyAmount').textContent = bounty; // Display the initial bounty
             showQuestion(currentQuestion);
         }
     
@@ -150,6 +172,7 @@
             const resultText = document.getElementById('resultText');
             const result = document.getElementById('result');
             const nextButton = document.getElementById('nextButton');
+            const bountyAmount = document.getElementById('bountyAmount');
     
             if (isCrime === question.isCorrect) {
                 resultText.textContent = "You are correct!";
@@ -159,6 +182,8 @@
                 resultText.textContent = "Incorrect.";
                 crimeInfo.textContent = question.isCorrect ? question.crime : question.noCrime;
                 result.className = 'incorrect'; // Applies the incorrect styling
+                bounty += 100; // Increase bounty by ₹100 for each incorrect answer
+                bountyAmount.textContent = bounty; // Update bounty display
             }
     
             crimeInfo.style.display = 'block'; // Show the crime information
@@ -177,10 +202,9 @@
     
         function endGame() {
             // Logic to end the game or display final results
-            alert("Game over! Thank you for playing.");
+            alert(`Game over! You have to pay a fine of ₹${bounty} for your wrong answers. Be aware of crime!`);
             // You can redirect to a different page or restart the game here
         }
     </script>
-    
 </body>
 </html>
