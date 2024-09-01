@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { themes } from '../data/questions';
-import './Wheel.css'; // Import the CSS file for styles
+import './Wheel.css';
 
-const Wheel = ({ onSpin }) => {
-  const [spinning, setSpinning] = useState(false);
+const Wheel = ({ onSpin, isSpinning, setIsSpinning }) => {
   const themeNames = Object.keys(themes);
 
   const spinWheel = () => {
-    if (spinning) return;
+    if (isSpinning) return; // Prevent further spins if already spinning
 
-    setSpinning(true);
+    setIsSpinning(true); // Set spinning state to true
 
     const selectedTheme = themeNames[Math.floor(Math.random() * themeNames.length)];
     const questions = themes[selectedTheme];
@@ -17,20 +16,19 @@ const Wheel = ({ onSpin }) => {
 
     setTimeout(() => {
       onSpin(selectedTheme, selectedQuestion);
-      setSpinning(false);
     }, 3000); // Duration of the spin animation
   };
 
   return (
     <div className="wheel-container">
-      <div className={`wheel ${spinning ? 'spin' : ''}`}>
+      <div className={`wheel ${isSpinning ? 'spin' : ''}`}>
         {themeNames.map((theme, index) => (
           <div key={index} className="wheel-segment">
             <span>{theme}</span>
           </div>
         ))}
       </div>
-      <button onClick={spinWheel} disabled={spinning}>Spin the Wheel</button>
+      <button onClick={spinWheel} disabled={isSpinning}>Spin the Wheel</button>
     </div>
   );
 };
