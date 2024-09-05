@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+<link rel="icon" href="logo.webp" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <title>LegalKhel</title>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <a href="#"><img src="logo (2).webp" alt="LegalKhel Logo"></a>
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Games</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+<!--hero section--> 
+<div class="card">
+    <div class="text-section">
+        <h2 style="font-size: 100px;">Welcome to LegalKhel</h2>
+        <p id="typing-text"></p> <!-- Typing animation will be applied here -->
+    </div>
+    <div class="carousel-section">
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="logo.webp" alt="Image 1">
+            </div>
+            <div class="carousel-slide">
+                <img src="indianconstitution.webp" alt="Image 2">
+            </div>
+            <div class="carousel-slide">
+                <img src="logo.webp" alt="Image 3">
+            </div>
+            <!-- Add more slides as needed -->
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+</div> 
+
+<!--Card Section-->
+<h1 style="text-align: center; margin-top: 50px; font-size: 50px;">Featured Games</h1>
+<div class="card-section1">
+    <!-- Card 1 --> 
+    <div class="custom-card">
+        <a href="startGame.html" target="_blank"> <!-- Fixed the target attribute value to "_blank" -->
+            <img src="vicecity.webp" alt="Image 1" class="custom-card-image">
+            <video class="custom-card-video" src="intro.mp4" muted autoplay loop></video>
+        </a>
+    </div>
+    
+    <!-- Card 2 -->
+    <div class="custom-card"> 
+        <a href="startnavigator.html" target="_blank">
+        <img src="civicnavigator.webp" alt="Image 2" class="custom-card-image">
+        <video class="custom-card-video" src="navigator.mp4" muted autoplay loop></video>
+       </a>
+    </div>
+    <!-- Card 3 -->
+    <div class="custom-card">
+        <img src="spinthewheel.webp" alt="Image 3" class="custom-card-image">
+    </div>
+    <!-- Repeat for other cards -->
+    <div class="custom-card" style="margin-left: 500px;">
+        <img src="comingsoon (2).webp" alt="Image 4" class="custom-card-image">
+    </div>
+</div>
+
+
+
+<!-- Flickity HTML init --> 
+ <h1 style="text-align: center;">Our Key Features</h1> 
+<div class="carousel"
+  data-flickity='{ "imagesLoaded": true, "percentPosition": false }'>
+  <img src="interactivequiz.jpeg" alt="orange tree" />
+  <img src="educationalgame.jpeg" alt="submerged" />
+  <img src="game.jpeg" alt="look-out" />
+  <img src="rewards.png" alt="One World Trade" />
+</div>
+
+
+    <section class="how-it-works">
+        <h2 class="how-it-works-heading">How It Works</h2>
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-icon">🎥</div>
+                <h3 class="step-title">Watch the Video</h3>
+                <p class="step-description">Start by watching an introductory video that explains the basics of the Indian Constitution.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">📚</div>
+                <h3 class="step-title">Learn the Concepts</h3>
+                <p class="step-description">Explore interactive content and resources to deepen your understanding of the Constitution.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">🎮</div>
+                <h3 class="step-title">Play the Games</h3>
+                <p class="step-description">Engage with quizzes and games to test your knowledge and earn rewards.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">🏆</div>
+                <h3 class="step-title">Earn Badges</h3>
+                <p class="step-description">Collect badges and achievements as you progress and master different aspects of the Constitution.</p>
+            </div>
+        </div>
+    </section>
+    <section class="blog-section">
+        <h2 class="blog-heading">Latest News on Laws and Crimes</h2>
+        <div id="news-container" class="news-container">
+            <!-- News articles will be dynamically inserted here -->
+        </div>
+    </section>
+    
+</body>
+<script src="script.js"></script>
+
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+</html>
